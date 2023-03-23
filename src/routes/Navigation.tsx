@@ -1,15 +1,16 @@
 import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
 import { IndexPage } from "../pages";
+import logo from '../assets/react.svg';
 
 export const Navigation: React.FC = () => {
     return (
       <BrowserRouter>
-        <div className="main-layout">
+        <div className="">
           <nav>
-            {/* <img src={logo} alt='react-logo' style={{ marginTop:12 }} /> */}
+            <img src={logo} alt='react-logo' style={{ marginTop:12 }} />
             <ul>
               <li>
-                <NavLink className={({isActive})=> isActive ? 'nav-active':''}  to="/">Shopping Page</NavLink>
+                <NavLink className={({isActive})=> isActive ? 'nav-active':''}  to="/">Home</NavLink>
               </li>
               <li>
                 <NavLink className={({isActive})=> isActive ? 'nav-active':''}  to="/about">About</NavLink>
