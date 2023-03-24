@@ -1,5 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;500;700;900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.custom-link{
+    font-family: 'Red Hat Display', sans-serif;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 300;
+    font-size:x-large;
+}
+
+a {
+    font-family: 'Red Hat Display', sans-serif;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 300;
+    font-size: large;
+}
+
+a:hover {
+    color: cornflowerblue;
 }

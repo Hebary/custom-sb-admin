@@ -1,4 +1,4 @@
-import { Sidebar } from '../ui'
+import { Navbar, Sidebar } from '../ui'
 import { Box } from '@mui/material';
 
 interface Props {
@@ -7,15 +7,14 @@ interface Props {
 }
 
 
-export const Layout: React.FC<Props> = ({ children, title = '' }) => {
+export const Layout: React.FC<Props> = ({ children }) => {
    return (
-    <Box display='flex'>
-         
-       <Sidebar/>
-        
-       <main style={{ flex:1 }}>
+      <Box display='flex'>
+         <Navbar/>
+         <Sidebar/>
+         <main style={{ flex:1, marginTop:60, padding:20 }}>
             {children}
-       </main>
-    </Box>
+         </main>
+      </Box>
    )
 }
