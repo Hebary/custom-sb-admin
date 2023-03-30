@@ -1,23 +1,32 @@
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Layout } from '../components/layout';
-import { Grid, IconButton, Typography } from '@mui/material';
-import { EditOutlined, HighlightOff } from '@mui/icons-material';
-    
+import { useEffect, useState } from 'react';
 
+import { styled } from '@mui/material/styles';
+import { Grid, IconButton, Table, TableContainer, TableBody, TableCell, tableCellClasses, TableHead, TableRow, Paper, Button, Typography } from '@mui/material';
+import { EditOutlined, HighlightOff, PersonAddAlt } from '@mui/icons-material';
+
+import { Layout } from '../components/layout';
+import { customerApi } from './api';
+import { Customer } from '../interfaces';
 
 
 interface Props {
 }
 
-export const Employee: React.FC<Props> = ({}) => {
+export const CustomerList: React.FC<Props> = ({}) => {
     
+    const [customers, setCustomers] = useState<Customer[]>([]);
+
+    const getCustomers = async ( ) => { 
+      const customers = await customerApi.getCustomers();
+      setCustomers(customers)
+    }
+
+    useEffect(() => {
+      getCustomers();
+    }, [])
+    
+
+
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
       [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -38,25 +47,22 @@ export const Employee: React.FC<Props> = ({}) => {
       },
     }));
     
-    function createData(
-      name    : string,
-      lastname: string,
-      email   : string,
-      address : string,
-      phone   : string,
-      salary  : number,
-    ) {
-      return { name, lastname, email, address, phone, salary };
-    }
     
-    const rows = [
-      createData('Marcos', 'Olivares', 'marcos@correo.com', 'Av. Piura 64', '123456789', 9000),
-      createData('Jorge', 'Gomez', 'jorge@correo.com', 'Av. Cabrera 20', '123124122', 10000),
-    ];
+    const rows = customers.map(({ name, lastname, address, email, phone, }) => ({
+          name,
+          lastname,
+          email,
+          address,
+          phone,
+      }));
+    
     
     return (
         <Layout>
-            <h1 className='custom-title' >Employees</h1>
+          <Grid item display='flex' mt={1} mb={4}  justifyContent='space-between'>
+            <h1 style={{ padding:0, margin:0 }} className='custom-title'  >Customers</h1>
+            <Button variant='contained' color='secondary' endIcon={<PersonAddAlt/>} sx={{py:1}}>Add Customer</Button>
+          </Grid>
             <Grid container mt={2}>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -67,19 +73,19 @@ export const Employee: React.FC<Props> = ({}) => {
                                 <StyledTableCell>Email</StyledTableCell>
                                 <StyledTableCell>Address</StyledTableCell>
                                 <StyledTableCell>Phone</StyledTableCell>
-                                <StyledTableCell>Salary</StyledTableCell>
                                 <StyledTableCell>Actions</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {rows.map((row) => (
                             <StyledTableRow key={row.name}>
-                                <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                  {row.name}
+                                </StyledTableCell>
                                 <StyledTableCell>{row.lastname}</StyledTableCell>
                                 <StyledTableCell>{row.email}</StyledTableCell>
                                 <StyledTableCell>{row.address}</StyledTableCell>
                                 <StyledTableCell>{row.phone}</StyledTableCell>
-                                <StyledTableCell>{row.salary}</StyledTableCell>
                                 <StyledTableCell>
                                     <IconButton>
                                         <EditOutlined/>        

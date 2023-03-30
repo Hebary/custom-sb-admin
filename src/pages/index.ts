@@ -1,4 +1,4 @@
 export * from './IndexPage'
-export * from './Customer'
-export * from './Employee'
-export * from './Supplier'
+export * from './CustomerList'
+export * from './EmployeeList'
+export * from './SupplierList'

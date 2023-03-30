@@ -1,22 +1,17 @@
+import { useEffect, useState } from 'react';
+
+import { Grid, IconButton, Table, TableContainer, TableBody, TableCell, tableCellClasses, TableHead, TableRow, Paper, Button } from '@mui/material';
+import { EditOutlined, HighlightOff, PersonAddAlt } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
 import { Layout } from '../components/layout';
-import { Grid, IconButton } from '@mui/material';
-import { EditOutlined, HighlightOff } from '@mui/icons-material';
-    
 
 
 
 interface Props {
 }
 
-export const Customer: React.FC<Props> = ({}) => {
+export const SupplierList: React.FC<Props> = ({}) => {
     
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
       [`&.${tableCellClasses.head}`]: {
@@ -39,46 +34,50 @@ export const Customer: React.FC<Props> = ({}) => {
     }));
     
     function createData(
-      name: string,
-      lastname: string,
-      email: string,
+      name   : string,
+      email  : string,
+      contact: string,
       address: string,
-      phone: string,
+      phone  : string,
+      web    : string,
     ) {
-      return { name, lastname, email, address, phone };
+      return { name, email, address, phone, web, contact };
     }
     
     const rows = [
-      createData('Javier', 'Peretti','hola@correo.com', 'Stittsville 64', '123456789'),
-      createData('Juan', 'Perez','juan@correo.com', 'Ashton 90', '123124122'),
+      createData('Alan','alan@correo.com', 'Digital Services', 'Av. Piura 64', '123456789', 'https://this.com.ar'),
+      createData('Manfred', 'manfred@correo.com','Custom S.A', 'Av. Cabrera 20', '123124122', 'https://thong.com.ar'),
     ];
     
     return (
         <Layout>
-            <h1 className='custom-title' >Customers</h1>
+            <Grid item display='flex' mt={1} mb={4}  justifyContent='space-between'>
+              <h1 style={{ padding:0, margin:0 }} className='custom-title'  >Customers</h1>
+              <Button variant='contained' color='secondary' endIcon={<PersonAddAlt/>} sx={{py:1}}>Add Supplier</Button>
+            </Grid>
             <Grid container mt={2}>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell>Name</StyledTableCell>
-                                <StyledTableCell>Lastname</StyledTableCell>
                                 <StyledTableCell>Email</StyledTableCell>
+                                <StyledTableCell>Contact</StyledTableCell>
                                 <StyledTableCell>Address</StyledTableCell>
                                 <StyledTableCell>Phone</StyledTableCell>
+                                <StyledTableCell>Web</StyledTableCell>
                                 <StyledTableCell>Actions</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {rows.map((row) => (
                             <StyledTableRow key={row.name}>
-                                <StyledTableCell component="th" scope="row">
-                                  {row.name}
-                                </StyledTableCell>
-                                <StyledTableCell>{row.lastname}</StyledTableCell>
+                                <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
                                 <StyledTableCell>{row.email}</StyledTableCell>
+                                <StyledTableCell>{row.contact}</StyledTableCell>
                                 <StyledTableCell>{row.address}</StyledTableCell>
                                 <StyledTableCell>{row.phone}</StyledTableCell>
+                                <StyledTableCell>{row.web}</StyledTableCell>
                                 <StyledTableCell>
                                     <IconButton>
                                         <EditOutlined/>        
