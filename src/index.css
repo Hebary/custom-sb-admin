@@ -6,6 +6,14 @@
     box-sizing: border-box;
 }
 
+.font-rh  {
+    font-family: 'Red Hat Display', sans-serif;
+}
+
+.custom-bs {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
 .custom-link{
     font-family: 'Red Hat Display', sans-serif;
     text-decoration: none;
@@ -31,4 +39,19 @@ a {
 
 a:hover {
     color: cornflowerblue;
+}
+
+.fadeInUp{
+    animation : fadeInUp .7s cubic-bezier(0.275, 0.9, 0.42, 1.275)
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -4,7 +4,8 @@ import { Grid, IconButton, Table, TableContainer, TableBody, TableCell, tableCel
 import { EditOutlined, HighlightOff, PersonAddAlt } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
-import { Layout } from '../components/layout';
+import { Layout } from '../../components/layout';
+import { Link } from 'react-router-dom';
     
 
 
@@ -53,7 +54,11 @@ export const EmployeeList: React.FC<Props> = ({}) => {
         <Layout>
             <Grid item display='flex' mt={1} mb={4}  justifyContent='space-between'>
               <h1 style={{ padding:0, margin:0 }} className='custom-title'  >Employees</h1>
-              <Button variant='contained' color='secondary' endIcon={<PersonAddAlt/>} sx={{py:1}}>Add Employee</Button>
+              <Link to='/employee-edition'>
+                <Button sx={{ py: 1}}  variant='contained'  color='info' endIcon={<PersonAddAlt sx={{fontSize:30, mb:.3}} />}>
+                  Add Employee
+                </Button>
+              </Link>
             </Grid>
             <Grid container mt={2}>
                 <TableContainer component={Paper}>

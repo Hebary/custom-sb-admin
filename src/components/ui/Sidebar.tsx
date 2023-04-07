@@ -9,7 +9,7 @@ interface Props {
 
 export const Sidebar: React.FC<Props> = ({}) => {
    return (
-        <Box sx={{ p: 3, height:'100vh', width:250, background: grey[900]}}>
+        <Box sx={{ p: 3, height:'120vh', width:250, background: grey[900]}}>
             <Box display='flex' gap={3} flexDirection='column' mt={10} >
                 <NavLink color='#fff' className='custom-link' to="/customer">Customer</NavLink>
                 <NavLink color='#fff' className='custom-link' to="/employee">Employee</NavLink>
