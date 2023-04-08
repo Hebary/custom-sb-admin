@@ -8,10 +8,11 @@ export const Navigation: React.FC = () => {
               <Route path="/" element ={ <IndexPage/> }/>
               
               <Route path="/customer" element={ <CustomerList/> } />
-              <Route path="/customer-edition" element={ <CustomerEdition/> } />
+              <Route path="/customer/:id" element={ <CustomerEdition/> } />
 
               <Route path="/employee" element={ <EmployeeList/> } />
               <Route path="/employee-edition" element={ <EmployeeEdition/> } />
+
               
 
               <Route path="/supplier" element={ <SupplierList/> } />

@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { Grid, IconButton, Table, TableContainer, TableBody, TableCell, tableCellClasses, TableHead, TableRow, Paper, Button} from '@mui/material';
 import { EditOutlined, HighlightOff, PersonAddAlt } from '@mui/icons-material';
 import { Link }from 'react-router-dom'
+
 import { Layout } from '../../components/layout';
 import { customerApi } from '../api';
 import { Customer } from '../../interfaces';
@@ -47,20 +48,26 @@ export const CustomerList: React.FC = ({}) => {
     }));
     
     
-    const rows = customers.map(({ name, lastname, address, email, phone, }) => ({
+    const rows = customers.map(({ name, lastname, address, email, phone, id }) => ({
           name,
           lastname,
           email,
           address,
           phone,
+          id
       }));
+
+
+    const onAddCustomer = () => {
+      console.log('add customer')
+    }
     
     
     return (
         <Layout>
           <Grid item display='flex' mt={1} mb={4}  justifyContent='space-between'>
             <h1 style={{ padding:0, margin:0 }} className='custom-title'  >Customers</h1>
-            <Link to='/customer-edition'>
+            <Link to='/customer/new'>
               <Button sx={{ py: 1}}  variant='contained'  color='info' endIcon={<PersonAddAlt sx={{fontSize:30, mb:.3}} />}>
                 Add Customer
               </Button>
@@ -90,7 +97,10 @@ export const CustomerList: React.FC = ({}) => {
                                 <StyledTableCell>{row.address}</StyledTableCell>
                                 <StyledTableCell>{row.phone}</StyledTableCell>
                                 <StyledTableCell>
-                                    <IconButton>
+                                    <IconButton
+                                        component={Link}
+                                        to={`/customer/${row.id}`}
+                                    >
                                         <EditOutlined/>        
                                     </IconButton>
                                     <IconButton>
