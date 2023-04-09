@@ -15,7 +15,7 @@ export const Sidebar: React.FC<Props> = ({}) => {
                 <NavLink color='#fff' className='custom-link' to="/employee">Employees</NavLink>
                 <NavLink color='#fff' className='custom-link' to="/supplier">Suppliers</NavLink>
             </Box>
-            <Divider color='#fff' sx={{mt:5}} />
+            <Divider color={grey[800]} sx={{mt:5}} />
         </Box>
     )
 }

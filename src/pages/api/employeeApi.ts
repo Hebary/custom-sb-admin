@@ -18,7 +18,7 @@ export const saveEmployee = async (employee: Employee) => {
     console.log(data);
 }
 
-export const searchEmployeeById = async(id: string): Promise<Employee> =>  {
+export const getEmployeeById = async(id: string): Promise<Employee> =>  {
     const { data } = await sbApi.get(`/employees/${id}`);
     return data as Employee;
 }

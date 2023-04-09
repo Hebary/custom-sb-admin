@@ -11,12 +11,12 @@ export const Navigation: React.FC = () => {
               <Route path="/customer/:id" element={ <CustomerEdition/> } />
 
               <Route path="/employee" element={ <EmployeeList/> } />
-              <Route path="/employee-edition" element={ <EmployeeEdition/> } />
+              <Route path="/employee/:id" element={ <EmployeeEdition/> } />
 
               
 
               <Route path="/supplier" element={ <SupplierList/> } />
-              <Route path="/supplier-edition" element={ <SupplierEdition/> } />
+              <Route path="/supplier/:id" element={ <SupplierEdition/> } />
           </Routes>
   
       </BrowserRouter>

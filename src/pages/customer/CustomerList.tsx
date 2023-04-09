@@ -15,6 +15,7 @@ import { Customer } from '../../interfaces';
 export const CustomerList: React.FC = ({}) => {
     
     const [customers, setCustomers] = useState<Customer[]>([]);
+    
 
     const getCustomers = async ( ) => { 
       const customers = await customerApi.getCustomers();
@@ -58,22 +59,25 @@ export const CustomerList: React.FC = ({}) => {
       }));
 
 
-    const onAddCustomer = () => {
-      console.log('add customer')
-    }
-    
+      const onDeleteCustomer = async (id: string) => {
+        const deletedCustomer = await customerApi.removeCustomer(id);
+        
+        if (deletedCustomer) {
+          getCustomers();
+        }
+      }
     
     return (
         <Layout>
-          <Grid item display='flex' mt={1} mb={4}  justifyContent='space-between'>
+          <Grid item display='flex' mt={1} mb={4} className='fadeIn' justifyContent='space-between'>
             <h1 style={{ padding:0, margin:0 }} className='custom-title'  >Customers</h1>
             <Link to='/customer/new'>
-              <Button sx={{ py: 1}}  variant='contained'  color='info' endIcon={<PersonAddAlt sx={{fontSize:30, mb:.3}} />}>
+              <Button sx={{ py: 1, mt:1.3}}  variant='contained'  color='info' endIcon={<PersonAddAlt sx={{fontSize:30, mb:.3}} />}>
                 Add Customer
               </Button>
             </Link>
           </Grid>
-            <Grid container mt={2}>
+            <Grid container mt={2} className='fadeIn'>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
@@ -103,7 +107,9 @@ export const CustomerList: React.FC = ({}) => {
                                     >
                                         <EditOutlined/>        
                                     </IconButton>
-                                    <IconButton>
+                                    <IconButton
+                                      onClick={()=> onDeleteCustomer(String(row.id))}
+                                    >
                                         <HighlightOff/>
                                     </IconButton>
                                 </StyledTableCell>

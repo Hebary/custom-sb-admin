@@ -4,10 +4,12 @@ import { Layout } from '../../components/layout'
 import { useNavigate, useParams } from 'react-router-dom';
 import { customerApi } from '../api';
 import { Customer } from '../../interfaces';
+import { ErrorOutline } from '@mui/icons-material';
 
 export const CustomerEdition: React.FC = () => {
   
     const { id } = useParams<{ id: string }>();
+
     const [customer, setCustomer] = useState<Customer>({
         name: '',
         lastname: '',
@@ -15,6 +17,8 @@ export const CustomerEdition: React.FC = () => {
         address: '',
         phone: '',
     });
+
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         checkCustomerId();
@@ -30,6 +34,14 @@ export const CustomerEdition: React.FC = () => {
     const navigate = useNavigate();
 
     const saveCustomer = async () => {
+        const { name, lastname, email, address, phone } = customer;
+        if([name, lastname, email, address, phone].includes('')){
+            setError(true);
+
+            setTimeout(() => setError(false),3000);
+
+            return;
+        }
         await customerApi.saveCustomer(customer);
         navigate('/customer');
     }
@@ -40,18 +52,16 @@ export const CustomerEdition: React.FC = () => {
             <Box className='custom-bs fadeInUp' sx={{ bgcolor:'#fff', width:'450px', m:'15px auto', p: 4, borderRadius: 10 }} >
 
                         <Grid container spacing={ 3 }>
-
+                        
                             <Grid item xs={ 12 }>
-                                {/*                                 
                                 <Chip
-                                    label='Please check your credentials'
+                                    label='All fields are required'
                                     color='error'
-                                    className='fadeIn'
+                                    className='fadeInUp'
                                     icon= {<ErrorOutline/>}
                                     variant='outlined'
                                     sx={{ display: error ? 'flex' : 'none' , mt: 1 }}
-                                /> */}
-
+                                />
                             </Grid>
                            
                             <Grid item xs={ 12 } >
@@ -103,7 +113,7 @@ export const CustomerEdition: React.FC = () => {
                             <Grid item xs={ 12 } display='flex' justifyContent='center'>
                                 <Button 
                                     sx={{color:'#fff', 
-                                    background:'rgb(127, 167, 240)', 
+                                    background:'#48a', 
                                     ":hover":{bgcolor:'cornflowerblue'}}} 
                                     fullWidth  
                                     size='large' 
