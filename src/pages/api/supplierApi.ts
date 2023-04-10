@@ -7,7 +7,7 @@ export const getSuppliers = async(): Promise<Supplier[]> => {
     return data as Supplier[];
 }
 
-export const removeSupplier = async (id: string): Promise<boolean> => {
+export const deleteSupplierById = async (id: string): Promise<boolean> => {
     const {data} = await sbApi.delete(`/suppliers/${id}`);
     console.log(data)
     return true;
@@ -18,7 +18,7 @@ export const saveSupplier = async (supplier: Supplier) => {
     console.log(data);
 }
 
-export const searchSupplierById = async(id: string): Promise<Supplier> =>  {
+export const getSupplierById = async(id: string): Promise<Supplier> =>  {
     const { data } = await sbApi.get(`/suppliers/${id}`);
     return data as Supplier;
 }

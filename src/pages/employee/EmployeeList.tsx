@@ -49,13 +49,12 @@ export const EmployeeList: React.FC = ({}) => {
     }));
     
     
-    const rows = employees.map(({ name, lastname,salary, address, email, phone, id }) => ({
+    const rows = employees.map(({ name, lastname, address, email, phone, id }) => ({
           name,
           lastname,
           email,
           address,
           phone,
-          salary,
           id
       }));
 
@@ -87,7 +86,6 @@ export const EmployeeList: React.FC = ({}) => {
                                 <StyledTableCell>Lastname</StyledTableCell>
                                 <StyledTableCell>Email</StyledTableCell>
                                 <StyledTableCell>Address</StyledTableCell>
-                                <StyledTableCell>Salary</StyledTableCell>
                                 <StyledTableCell>Phone</StyledTableCell>
                                 <StyledTableCell>Actions</StyledTableCell>
                             </TableRow>
@@ -100,7 +98,6 @@ export const EmployeeList: React.FC = ({}) => {
                                 </StyledTableCell>
                                 <StyledTableCell>{row.lastname}</StyledTableCell>
                                 <StyledTableCell>{row.email}</StyledTableCell>
-                                <StyledTableCell>{row.salary}</StyledTableCell>
                                 <StyledTableCell>{row.address}</StyledTableCell>
                                 <StyledTableCell>{row.phone}</StyledTableCell>
                                 <StyledTableCell>

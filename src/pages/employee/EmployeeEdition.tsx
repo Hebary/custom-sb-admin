@@ -15,7 +15,6 @@ const { id } = useParams<{ id: string }>();
         lastname: '',
         email: '',
         address: '',
-        salary: 0,
         phone: '',
     });
 
@@ -35,9 +34,9 @@ const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
     const saveEmployee = async () => {
-        const { name, lastname, email, address, salary , phone } = employee;
+        const { name, lastname, email, address, phone } = employee;
 
-        if([name, lastname, email, salary, address, phone].includes('')){
+        if([name, lastname, email, address, phone].includes('')){
             setError(true);
 
             setTimeout(() => setError(false),3000);
@@ -50,7 +49,7 @@ const { id } = useParams<{ id: string }>();
 return (
 
     <Layout>  
-        <h1 style={{ padding: 0, marginTop: 7.7, marginBottom: 3 }} className='custom-title'>Employees Edition</h1>
+        <h1 style={{ padding: 0, marginTop: 7.7, marginBottom: 3 }} className='custom-title'>{ id === 'new' ? 'Add Employee' : 'Employee Edition'}</h1>
         <Box className='custom-bs fadeInUp' sx={{ bgcolor:'#fff', width:'450px', m:'10px auto', p: 4, pt: 2, borderRadius: 10 }} >
 
                         <Grid container spacing={ 3 }>
@@ -69,17 +68,19 @@ return (
                             <Grid item xs={ 12 } >
                                 <TextField 
                                     variant='filled'
-                                    value={employee.name} 
+                                    value={ employee.name } 
                                     fullWidth 
-                                    label='Name' />
+                                    onChange={ ({ target })=> setEmployee({...employee, name: target.value}) }
+                                    placeholder='Name' />
                             </Grid>
                            
                             <Grid item xs={ 12 } >
                                 <TextField 
                                     variant='filled' 
                                     fullWidth
-                                    value={employee.lastname} 
-                                    label='Lastname' />
+                                    onChange={ ({ target })=> setEmployee({...employee, lastname: target.value} )}
+                                    value={ employee.lastname } 
+                                    placeholder='Lastname' />
                             </Grid>
 
                             <Grid item xs={ 12 } >
@@ -87,39 +88,35 @@ return (
                                     type='email'
                                     variant='filled' 
                                     fullWidth
-                                    value={employee.email} 
-                                    label='Email' />
+                                    onChange={ ({ target })=> setEmployee( {...employee, email: target.value} )}
+                                    value={ employee.email } 
+                                    placeholder='Email' />
                             </Grid>
 
                             <Grid item xs={ 12 } >
                                 <TextField 
                                     variant='filled' 
                                     fullWidth
-                                    value={employee.address} 
-                                    label='Address' />
+                                    onChange={({ target })=> setEmployee( {...employee, address: target.value} )}
+                                    value={ employee.address } 
+                                    placeholder='Address' />
                             </Grid>
 
                             <Grid item xs={ 12 } >
                                 <TextField
                                     variant='filled' 
                                     fullWidth
-                                    value={employee.phone} 
-                                    label='Phone' />
-                            </Grid>
-                            <Grid item xs={ 12 } >
-                                <TextField
-                                    type='number'
-                                    variant='filled'
-                                    value={ employee.salary } 
-                                    fullWidth 
-                                    label='Salary' />
+                                    value={ employee.phone } 
+                                    onChange={ ({ target })=> setEmployee( {...employee, phone: target.value} )}
+                                    placeholder='Phone'
+                                    />
                             </Grid>
 
                             <Grid item xs={ 12 } display='flex' justifyContent='center'>
                                 <Button
                                     onClick={ saveEmployee } 
-                                    sx={{color:'#fff', background:'rgb(127, 167, 240)', ":hover":{bgcolor:'cornflowerblue'}}} fullWidth  size='large' >
-                                   { id==='new' ? 'Add Employee' : 'Save Changes' }
+                                    sx={{ color:'#fff', background:'rgb(127, 167, 240)', ":hover":{ bgcolor:'cornflowerblue'} }} fullWidth  size='large' >
+                                   { id === 'new' ? 'Add Employee' : 'Save Changes' }
                                 </Button>
                             </Grid>
 

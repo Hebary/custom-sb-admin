@@ -6,13 +6,26 @@ import { styled } from '@mui/material/styles';
 
 import { Layout } from '../../components/layout';
 import { Link } from 'react-router-dom';
+import { supplierApi } from '../api';
+import { Supplier } from '../../interfaces';
 
 
 
-interface Props {
-}
 
-export const SupplierList: React.FC<Props> = ({}) => {
+export const SupplierList: React.FC = () => {
+
+  const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+    
+
+    const getSuppliers = async ( ) => { 
+      const suppliers = await supplierApi.getSuppliers();
+      setSuppliers(suppliers)
+    }
+
+    useEffect(() => {
+      getSuppliers();
+    }, [])
+    
     
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
       [`&.${tableCellClasses.head}`]: {
@@ -34,33 +47,34 @@ export const SupplierList: React.FC<Props> = ({}) => {
       },
     }));
     
-    function createData(
-      name   : string,
-      email  : string,
-      contact: string,
-      address: string,
-      phone  : string,
-      web    : string,
-    ) {
-      return { name, email, address, phone, web, contact };
+    
+    
+    const rows = suppliers.map(({ name, email, contact, address, phone, web, id }) => ({
+        name,
+        email,
+        contact,
+        address,
+        phone,
+        web,
+        id
+    }));
+    
+    const deleteSupplier = async (id: string) => {
+      await supplierApi.deleteSupplierById(id);
+      getSuppliers();
     }
-    
-    const rows = [
-      createData('Alan','alan@correo.com', 'Digital Services', 'Av. Piura 64', '123456789', 'https://this.com.ar'),
-      createData('Manfred', 'manfred@correo.com','Custom S.A', 'Av. Cabrera 20', '123124122', 'https://thong.com.ar'),
-    ];
-    
+
     return (
         <Layout>
-            <Grid item display='flex' mt={1} mb={4}  justifyContent='space-between'>
+            <Grid item display='flex' mt={1} mb={4} className='fadeIn' justifyContent='space-between'>
             <h1 style={{ padding:0, margin:0 }} className='custom-title'  >Suppliers</h1>
-              <Link to='/supplier-edition'>
-                <Button  variant='contained'  color='info' endIcon={<PersonAddAlt sx={{fontSize:30, mb:.3}} />}>
-                  Add Supplier
-                </Button>
-              </Link>
-            </Grid>
-            <Grid container mt={2}>
+            <Link to='/supplier/new'>
+              <Button sx={{ py: 1, mt:1.3}}  variant='contained'  color='info' endIcon={<PersonAddAlt sx={{fontSize:30, mb:.3}} />}>
+                Add Supplier
+              </Button>
+            </Link>
+          </Grid>
+            <Grid container mt={2} className='fadeIn'>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
@@ -84,10 +98,15 @@ export const SupplierList: React.FC<Props> = ({}) => {
                                 <StyledTableCell>{row.phone}</StyledTableCell>
                                 <StyledTableCell>{row.web}</StyledTableCell>
                                 <StyledTableCell>
-                                    <IconButton>
+                                    <IconButton
+                                      component={Link}
+                                      to={`/supplier/${row.id}`}
+                                    >
                                         <EditOutlined/>        
                                     </IconButton>
-                                    <IconButton>
+                                    <IconButton
+                                      onClick={()=> deleteSupplier(row.id!)}
+                                    >
                                         <HighlightOff/>
                                     </IconButton>
                                 </StyledTableCell>

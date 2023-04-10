@@ -19,6 +19,7 @@ export const CustomerEdition: React.FC = () => {
     });
 
     const [error, setError] = useState(false);
+    const [dbError, setDbError] = useState(false);
 
     useEffect(() => {
         checkCustomerId();
@@ -42,13 +43,14 @@ export const CustomerEdition: React.FC = () => {
 
             return;
         }
+
         await customerApi.saveCustomer(customer);
         navigate('/customer');
     }
 
     return (
         <Layout>  
-            <h1 style={{ padding:0, marginTop:7.7 }} className='custom-title'  >{ id==='new' ? 'Add Customer' : 'Edit Customer' }</h1>
+            <h1 style={{ padding:0, marginTop: 7.7 }} className='custom-title'  >{ id === 'new' ? 'Add Customer' : 'Edit Customer' }</h1>
             <Box className='custom-bs fadeInUp' sx={{ bgcolor:'#fff', width:'450px', m:'15px auto', p: 4, borderRadius: 10 }} >
 
                         <Grid container spacing={ 3 }>
@@ -61,6 +63,14 @@ export const CustomerEdition: React.FC = () => {
                                     icon= {<ErrorOutline/>}
                                     variant='outlined'
                                     sx={{ display: error ? 'flex' : 'none' , mt: 1 }}
+                                />
+                                <Chip
+                                    label='Email already exists'
+                                    color='error'
+                                    className='fadeInUp'
+                                    icon= {<ErrorOutline/>}
+                                    variant='outlined'
+                                    sx={{ display: dbError ? 'flex' : 'none' , mt: 1 }}
                                 />
                             </Grid>
                            
